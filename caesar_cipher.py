@@ -1,4 +1,4 @@
-
+# RTS 4/10/22
 
 # Imports
 from string import ascii_uppercase
@@ -14,12 +14,34 @@ def cipher_key(shift):
 
 def shift_line(line, dict_key):
     new_line = ""
-    # Add code here
+    for letter in line:
+        if letter == " ":
+            new_line = new_line + " "
+            continue
+        elif letter == "\n":
+            new_line = new_line + "\n"
+            continue
+        elif letter == "!" or letter == "," or letter == "'":
+            new_line = new_line + letter
+            continue
+        letter = letter.upper()
+
+        new_line = new_line + dict_key[letter]
     return new_line
 
 
+# File
 def encrypt_message(filename, dict_key):
-    # Add code here
+    fixed = []
+    final = ""
+    with open(filename) as file:
+        for line in file:
+            fixed += shift_line(line, dict_key)
+        for lines in fixed:
+            final = final + lines
+        file = open("encrypted_test.txt", "w")
+        file.write(final)
+        file.close()
 
 
 # Main
